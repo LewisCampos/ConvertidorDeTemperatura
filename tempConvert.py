@@ -1,58 +1,65 @@
 from tkinter import *
 from functools import partial
 
-root = Tk()
-root.title("Convertor de Temperatura")
-root.iconbitmap("termometro.ico")
+raiz = Tk()
+raiz.title("Convertor de Temperatura")
+raiz.iconbitmap("termometro.ico")
 
 valor_temp="Celsius"
 
-def store_temp(sel_temp):
+def temperaturas(temp_sel):
     global valor_temp
-    temVal=sel_temp
+    valor_temp=temp_sel
 
-def call_result(rl1, rl2, inputn):
-    tem= inputn.get()
-    if temVal == "Celsius":
-        f = float((float(tem) * 9/5) + 32)
-        k = float((float(tem) + 273.15))
-        rl1.config(text="%f Fahrenheit" % f)
-        rl2.config(text="%f Kelvin" % k)
-    if temVal == "Fahrenheit":
-        c = float((float(tem)- 32) * 5/9)
-        k = c + 273
-        rl1.config(text="%f Celsius" % c)
-        rl2.config(text="%f Kelvin" % k)
-    if temVal == "Kelvin":
-        c = float((float(tem)- 273.15))
-        f = float((float(tem) - 273.15) * 1.8000 + 32.00)
-        rl1.config(text="%f Celsius" % c)
-        rl2.config(text="%f Fahrenheit" % f)
-    return
+def resultado(rEt1, rEt2, valor):
+    tem= valor.get()
+    while True:
+        try:
+            if valor_temp == "Celsius":
+                f = float((float(tem) * 9/5) + 32)
+                k = float((float(tem) + 273.15))
+                rEt1.config(text="%f Fahrenheit" % f)
+                rEt2.config(text="%f Kelvin" % k)
+            elif valor_temp == "Fahrenheit":
+                c = float((float(tem)- 32) * 5/9)
+                k = c + 273
+                rEt1.config(text="%f Celsius" % c)
+                rEt2.config(text="%f Kelvin" % k)
+            else:
+                c = float((float(tem)- 273.15))
+                f = float((float(tem) - 273.15) * 1.8000 + 32.00)
+                rEt1.config(text="%f Celsius" % c)
+                rEt2.config(text="%f Fahrenheit" % f)
+            return
+            break
+        except:
+            rEt1.config(text="ERROR, Valor no admitido..!!")
+            rEt2.config(text="ERROR, Valor no admitido..!!")
+            break
 
-numberInput= StringVar()
+numero_ingresado= StringVar()
 var= StringVar()
 
 
-input_label= Label(root, text="Enter Temperature")
-input_entry= Entry(root, textvariable=numberInput)
+Etqt_1= Label(raiz, text="Ingrese Temperatura")
+Etqt_entrada= Entry(raiz, textvariable=numero_ingresado)
 
 
-input_label.grid(row=0)
-input_entry.grid(row=0, column=1)
+Etqt_1.grid(row=0)
+Etqt_entrada.grid(row=0, column=1)
 
 
-rLabel_1= Label(root, text="Result1")
-rLabel_1.grid(row=3, columnspan=4)
-rLabel_2=Label(root, text="Result2")
-rLabel_2.grid(row=4, columnspan=4)
+rEtqt_1= Label(raiz, text="Result1")
+rEtqt_1.grid(row=3, columnspan=4)
+rEtqt_2=Label(raiz, text="Result2")
+rEtqt_2.grid(row=4, columnspan=4)
 
-call_result=partial(call_result, rLabel_1, rLabel_2, numberInput)
-result_button= Button(root, text="Convert", command=call_result)
-result_button.grid(row=1, columnspan=4)
+resultado_final=partial(resultado, rEtqt_1, rEtqt_2, numero_ingresado)
+boton_resultado= Button(raiz, text="Convertir", command=resultado_final)
+boton_resultado.grid(row=1, columnspan=4)
 
-dropdownList=["Celsius", "Fahrenheit", "Kelvin"]
-dropdown= OptionMenu(root, var, *dropdownList, command=store_temp )
-var.set(dropdownList[0])
-dropdown.grid(row=0, column=2)
-root.mainloop()
+lista_unidades=["Celsius", "Fahrenheit", "Kelvin"]
+boton_menu= OptionMenu(raiz, var, *lista_unidades, command=temperaturas)
+var.set(lista_unidades[0])
+boton_menu.grid(row=0, column=2)
+raiz.mainloop()
