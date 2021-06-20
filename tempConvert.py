@@ -1,14 +1,14 @@
-import tkinter as  tk
+from tkinter import *
 from functools import partial
 
-root = tk.Tk()
-root.title("Temperature Converter")
+root = Tk()
+root.title("Convertor de Temperatura")
 root.iconbitmap("termometro.ico")
 
-temVal="Celsius"
+valor_temp="Celsius"
 
 def store_temp(sel_temp):
-    global temVal
+    global valor_temp
     temVal=sel_temp
 
 def call_result(rl1, rl2, inputn):
@@ -30,29 +30,29 @@ def call_result(rl1, rl2, inputn):
         rl2.config(text="%f Fahrenheit" % f)
     return
 
-numberInput= tk.StringVar()
-var= tk.StringVar()
+numberInput= StringVar()
+var= StringVar()
 
 
-input_label= tk.Label(root, text="Enter Temperature")
-input_entry= tk.Entry(root, textvariable=numberInput)
+input_label= Label(root, text="Enter Temperature")
+input_entry= Entry(root, textvariable=numberInput)
 
 
 input_label.grid(row=0)
 input_entry.grid(row=0, column=1)
 
 
-rLabel_1= tk.Label(root, text="Result1")
+rLabel_1= Label(root, text="Result1")
 rLabel_1.grid(row=3, columnspan=4)
-rLabel_2= tk.Label(root, text="Result2")
+rLabel_2=Label(root, text="Result2")
 rLabel_2.grid(row=4, columnspan=4)
 
 call_result=partial(call_result, rLabel_1, rLabel_2, numberInput)
-result_button= tk.Button(root, text="Convert", command=call_result)
+result_button= Button(root, text="Convert", command=call_result)
 result_button.grid(row=1, columnspan=4)
 
 dropdownList=["Celsius", "Fahrenheit", "Kelvin"]
-dropdown= tk.OptionMenu(root, var, *dropdownList, command=store_temp )
+dropdown= OptionMenu(root, var, *dropdownList, command=store_temp )
 var.set(dropdownList[0])
 dropdown.grid(row=0, column=2)
 root.mainloop()
