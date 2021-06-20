@@ -2,7 +2,7 @@ from tkinter import *
 from functools import partial
 
 raiz = Tk()
-raiz.title("Convertor de Temperatura")
+raiz.title("Convertidor de Temperatura")
 raiz.iconbitmap("termometro.ico")
 
 valor_temp="Celsius"
